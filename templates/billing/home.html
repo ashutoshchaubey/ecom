@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>SKYWALKSFASHION | Billing</title>
+<meta charset="UTF-8">
+
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://headervideo.github.io/hvheadervideo/css/fontawesome.min.css">
+    <link href="https://headervideo.github.io/hvheadervideo/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://headervideo.github.io/hvheadervideo/css/mdb.min.css" rel="stylesheet">
+    <link href="https://headervideo.github.io/hvheadervideo/css/style.css" rel="stylesheet">
+    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<style>
+.w3-sidebar a {font-family: poppins;}
+body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: poppins;}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #fff;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #d4d9d1;
+    color: rgba(0,0,0,0.9);
+}
+</style>
+<body class="w3-content" style="background: #272824;">
+
+<!-- Sidebar/menu -->
+<nav class="w3-bar w3-border-bottom" style="background: #272824;">
+  <a href="#"><div class="w3-bar-item w3-padding-14 w3-wide" style="color: #d4d9d1; font-weight: bolder; font-size: 20px; font-family: poppins;">SKYWALKSFASHION</div></a>
+ 
+  
+ 
+  {% block navbar %}
+  {% if user.is_authenticated %}
+	<a href="{% url 'logout' %}" class="w3-bar-item w3-button w3-mobile w3-right" style="color: #d4d9d1; margin-top: 3px; border-left: 1px solid #272824;">Logout</a>
+  {% else %}
+  	 <a href="{% url 'signup' %}" class="w3-bar-item w3-button w3-mobile w3-right" style="color: #d4d9d1; margin-top: 3px;  border-left: 1px solid #272824;">Register</a>
+	<a href="{% url 'login' %}" class="w3-bar-item w3-button w3-mobile w3-right" style="color: #d4d9d1;  margin-top: 3px;  border-left: 1px solid #272824;" >Login</a>
+  {% endif %}
+  {% endblock %} 
+  <a href="{% url 'products_all' %}" class="w3-right w3-bar-item w3-button w3-mobile" style="color: #d4d9d1; margin-top: 3px;  border-left: 1px solid #272824;">
+      <i class="fa fa-search"></i>
+  </a>
+</nav>
+
+<!-- Top menu on small screens 
+<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+  <div class="w3-bar-item w3-padding-24 w3-wide">LOGO</div>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+</header>-->
+
+<!-- Overlay effect when opening sidebar on small screens 
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+-->
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:0px; background: #272824;">
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+  
+  <!-- Top header -->
+  <div style="margin-top: 50px;"></div>
+
+  <!-- Image header -->
+{% block content %}
+{% if user.is_authenticated %}
+	<div style="margin-top: 50px; min-height: 700px; padding: 10%;" class="w3-container w3-black w3-padding-32" id="PRODUCTS">
+		  <center><h2 style="color: #d4d9d1; font-weight: bolder; border-bottom: 2px solid red;">CUSTOMER INFORMATION</h2></center>
+		<div style="margin-top: 100px;"></div>
+		  <center>
+        <form action="{% url 'order_success' %}" method="post" style="width: 440px; margin-top: 50px;">
+          {% csrf_token %}
+          {% for field in form %}
+            {{ field.label_tag }}<br>
+            {{ field }}
+          {% endfor %}
+          <input type="submit" name="Submit" style="width: 100px; margin-top: 50px; background: rgba(0,0,0,0.9);">
+        </form>  
+      </center>
+		</div>
+{% else %}
+<div style="margin-top: 100px;"></div>
+<center>
+  <div style="margin-top: 50px; min-height: 300px; padding: 20%;" class="w3-container w3-black w3-padding-32" >
+  	<p style="font-size: 22px; color: #d4d9d1; margin-top: 50px;">Dive into the World of Fashion</p>
+   <a href="{% url 'login' %}" class="w3-bar-item w3-button w3-mobile" style="border-radius: 6px; color: #d4d9d1; margin-top: 3px; border: 1px solid #d4d9d1;">login</a>
+  </div>
+</center>
+ 
+{% endif %}
+{% endblock %}
+
+ 
+  <!-- Footer -->
+  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer" style="margin-top: 200px;">
+    <div class="w3-row-padding">
+      <div class="w3-col s4">
+        
+        <h4>Contact</h4>
+        <a href="{% url 'contact' %}" style="text-decoration: none;">
+          <button type="submit" class="w3-button w3-block w3-black">Click her to contact the Seller</button>
+        </a>
+      </div>
+
+
+
+
+
+      <div class="w3-col s4">
+        <h4>About</h4>
+        <p><a href="#" style="text-decoration: none;" class="">About us</a></p>
+        <p><a href="#" style="text-decoration: none;" class="">Return</a></p>
+        <p><a href="#" style="text-decoration: none;" class="">Help</a></p>
+      </div>
+
+      <div class="w3-col s4 w3-justify">
+        <h4>Store</h4>
+        <p><i class="fa fa-fw fa-map-marker"></i> SKYWALKFASHION</p>
+        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+        <p><i class="fa fa-fw fa-envelope"></i> skywalkfashion@gmail.com</p>
+        <h4>We accept</h4>
+        <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
+        <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
+        <br>
+        <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
+        <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
+        <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
+        <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
+        <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
+      </div>
+    </div>
+  </footer>
+
+  <div class="w3-black w3-center w3-padding-24" style="font-size: 11px;">&copy; 2018 | <a href="index.html" title="" target="_blank" class="w3-hover-opacity" style="text-decoration: none;">SKYWALKSFASHION</a></div>
+
+  <!-- End page content -->
+</div>
+
+<!-- Newsletter Modal -->
+<div id="newsletter" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+    <div class="w3-container w3-white w3-center">
+      <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+      <h2 class="w3-wide">NEWSLETTER</h2>
+      <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+      <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+    </div>
+
+  </div>
+
+  <!-- Subscribe section -->
+  
+</div>
+
+<script>
+// Accordion 
+function myAccFunc() {
+    var x = document.getElementById("demoAcc");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+// Click on the "Jeans" link on page load to open the accordion for demo purposes
+document.getElementById("myBtn").click();
+
+
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>
